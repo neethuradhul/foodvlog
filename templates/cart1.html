@@ -1,0 +1,48 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Shopping Cart</title>
+    <link href="{% static 'cr/cartcssfile.css' %}" rel="stylesheet" type="text/css" media="all">
+
+  </head>
+  <body>
+    <h1>Your Cart</h1>
+{% for i in ci %}
+  <div class="container">
+    <a href="{{i.prodt.get_url}}"> <img src="{{ i.prodt.img.url }}" alt="{{i.prodt.name}}" style="height:100px;width:100px;">
+     <p> {{i.prodt.name}}</p></a>
+    <p>Rs.{{i.prodt.price}}</p>
+    <p>Qty {{i.quan}}</p>
+    <span class="product-quantity">
+       <p>Rs.{{i.total}}</p>
+      <a href="{% url 'addcart' i.prodt.id %}"> <i class="fa fa-plus" style="font-size:10px"></i> </a>&nbsp;&nbsp; {{i.quan}}&nbsp;&nbsp; <a href="{% url 'cart_decrement' i.prodt.id%}"> <i class="fa fa-minus" style="font-size:10px"></i> </a>
+    </span>
+<!--    <div class="product-removal">-->
+<!--      <button class="remove-product">-->
+        <a href="{% url 'remove' i.prodt.id %}" > Remove </a>
+<!--      </button>-->
+<!--    </div>-->
+
+</div>
+{% endfor %}
+
+  <div class="totals">
+
+
+    <div class="totals-item totals-item-total">
+      <label>Grand Total</label>
+      <div class="totals-value" id="cart-total">{{t}}</div>
+    </div>
+  </div>
+
+      <button class="checkout">Checkout</button>
+
+</div>
+
+  </body>
+</html>
+{% endblock %}
